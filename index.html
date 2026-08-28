@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123b2a">
+  <title>TrailGuard — Your trail. Your way back.</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section id="homeView" class="view active" aria-labelledby="brandName">
+      <div class="hero">
+        <div class="brand-mark">△</div>
+        <p class="eyebrow">OUTDOOR SAFETY</p>
+        <h1 id="brandName">Trail<span>Guard</span></h1>
+        <p class="tagline">Your trail. Your way back.</p>
+        <button id="startButton" class="button primary large">Start Hike <span>→</span></button>
+      </div>
+      <section class="summary-card" aria-label="Hiking summary">
+        <p class="section-kicker">YOUR EXPLORATION</p>
+        <div class="summary-stats"><div><strong id="totalHikes">0</strong><span>Hikes</span></div><div><strong id="totalDistance">0.0</strong><span>Kilometres</span></div></div>
+      </section>
+      <section class="recent-section"><div class="section-heading"><h2>Recent hikes</h2><button class="text-button" data-nav="history">View all</button></div><div id="recentHikes" class="hike-list"></div></section>
+      <section class="notice"><span>◎</span><p><strong>GPS required</strong><br>TrailGuard uses your phone’s location only while tracking. Your hikes stay on this device.</p></section>
+    </section>
+
+    <section id="gpsView" class="view centered-view" aria-live="polite">
+      <div class="compass-loader">⌖</div><p class="eyebrow">GPS INITIALIZATION</p><h2>Finding your location…</h2>
+      <p id="gpsMessage" class="muted">Keep TrailGuard open and allow location access.</p>
+      <div id="gpsDetails" class="coordinates hidden"></div>
+      <button id="gpsRetry" class="button secondary hidden">Try again</button><button class="text-button" data-nav="home">Cancel</button>
+    </section>
+
+    <section id="activeView" class="view map-view">
+      <div id="liveMap" class="map" aria-label="Live hike map"></div>
+      <header class="map-header"><button class="icon-button" id="followButton" aria-label="Center map on my position">◎</button><div class="recording-pill"><i></i><span id="recordingStatus">RECORDING</span></div><button class="icon-button" id="activeInfo" aria-label="GPS information">i</button></header>
+      <div class="map-panel live-panel">
+        <div class="stat-grid"><div><span>DISTANCE</span><strong id="liveDistance">0.00 <small>km</small></strong></div><div><span>TIME</span><strong id="liveTime">00:00:00</strong></div><div><span>GPS</span><strong id="liveGps">—</strong></div><div><span>STATUS</span><strong id="liveStatus">Ready</strong></div></div>
+        <p id="liveCoordinates" class="map-meta">Waiting for GPS…</p>
+        <div class="action-row"><button id="pauseButton" class="button secondary">Pause</button><button id="stopButton" class="button danger">Stop hike</button></div>
+      </div>
+    </section>
+
+    <section id="completeView" class="view centered-view complete-view"><div class="success-badge">✓</div><p class="eyebrow">TRAIL RECORDED</p><h2>Hike complete</h2><div id="completeStats" class="completion-card"></div><div class="stack-actions"><button id="saveButton" class="button primary">Save hike</button><button id="routeButton" class="button secondary">View route</button><button id="discardButton" class="text-button danger-text">Discard this hike</button></div></section>
+
+    <section id="historyView" class="view list-view"><header class="page-header"><div><p class="eyebrow">YOUR RECORDS</p><h2>My Hikes</h2></div></header><div id="historyList" class="hike-list history-list"></div></section>
+
+    <section id="routeView" class="view map-view"><div id="routeMap" class="map"></div><header class="map-header"><button class="icon-button" data-nav="history" aria-label="Back">‹</button><div class="map-title">Trail details</div></header><div class="map-panel route-panel"><p id="routeName" class="section-kicker">RECORDED HIKE</p><div id="routeStats" class="route-stats"></div><div class="action-row"><button id="backtrackButton" class="button primary">↩ Backtrack</button><button id="deleteButton" class="button secondary">Delete</button></div></div></section>
+
+    <section id="backtrackView" class="view map-view"><div id="backtrackMap" class="map"></div><header class="map-header"><button class="icon-button" id="exitBacktrack" aria-label="Exit backtrack">‹</button><div class="recording-pill backtrack-pill"><i></i><span>BACKTRACKING</span></div><button class="icon-button" id="backtrackFollow" aria-label="Center map on my position">◎</button></header><div class="map-panel backtrack-panel"><div id="trailAlert" class="trail-alert good"><strong>● Back on trail</strong><span>Following your recorded route toward the start.</span></div><div class="backtrack-stats"><div><span>TO START</span><strong id="distanceToStart">—</strong></div><div><span>FROM TRAIL</span><strong id="distanceFromTrail">—</strong></div><div class="bearing"><span id="directionArrow">↑</span><small id="directionText">Finding direction</small></div></div><p id="backtrackStatus" class="map-meta">Getting your current location…</p></div></section>
+
+    <nav id="bottomNav" class="bottom-nav"><button class="nav-item active" data-nav="home"><span>⌂</span>Home</button><button class="nav-item" data-nav="history"><span>⌁</span>My hikes</button></nav>
+  </main>
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true"><div class="modal-card"><h2 id="modalTitle"></h2><p id="modalText"></p><div id="modalActions" class="modal-actions"></div></div></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
